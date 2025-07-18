@@ -2,6 +2,7 @@
 
 public class Exam
 {
-    public required string ExamName { get; set; }
+    public Guid ExamId { get; set; }
+    public string ExamName { get; set; }
     public int MaxMark { get; set; }
 }
