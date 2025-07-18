@@ -5,8 +5,9 @@ namespace TestContainersExample.Infrastructure
 {
     public class ExamRepository : IExamRepository
     {
-        private readonly ApplicationDbContext _applicationDbContext;
-        public ExamRepository(ApplicationDbContext applicationDbContext)
+        private readonly ExamDbContext _applicationDbContext;
+
+        public ExamRepository(ExamDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }

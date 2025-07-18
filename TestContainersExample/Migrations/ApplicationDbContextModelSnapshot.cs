@@ -10,7 +10,7 @@ using TestContainersExample.Infrastructure;
 
 namespace TestContainersExample.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ExamDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace TestContainersExample.Migrations
                     b.Property<Guid>("ExamId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExamDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ExamName")
                         .IsRequired()

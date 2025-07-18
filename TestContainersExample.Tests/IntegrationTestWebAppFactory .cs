@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Testcontainers.MsSql;
 using TestContainersExample.Infrastructure;
 
@@ -16,6 +15,7 @@ public class IntegrationTestWebAppFactory
     private readonly MsSqlContainer _dbContainer = new MsSqlBuilder()
         .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
         .WithPassword("Strong_password_123!")
+        .WithName("Exams")
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -23,7 +23,7 @@ public class IntegrationTestWebAppFactory
         builder.ConfigureTestServices(services =>
         {
             var descriptorType =
-                typeof(DbContextOptions<ApplicationDbContext>);
+                typeof(DbContextOptions<ExamDbContext>);
 
             var descriptor = services
                 .SingleOrDefault(s => s.ServiceType == descriptorType);
@@ -33,8 +33,12 @@ public class IntegrationTestWebAppFactory
                 services.Remove(descriptor);
             }
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            var result = _dbContainer.GetConnectionString();
+
+            services.AddDbContext<ExamDbContext>(options =>
                 options.UseSqlServer(_dbContainer.GetConnectionString()));
+
+     
         });
     }
 

@@ -12,8 +12,8 @@ using TestContainersExample.Infrastructure;
 namespace TestContainersExample.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20250718130021_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250718172214_AddExamDate")]
+    partial class AddExamDate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace TestContainersExample.Migrations
                     b.Property<Guid>("ExamId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExamDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ExamName")
                         .IsRequired()
